@@ -1,10 +1,11 @@
 const canvas = document.getElementById('jsCanvas')
 const ctx = canvas.getContext("2d")
+const colors = document.getElementsByClassName('js-color')
 
 canvas.width = 700; // context함수를 이용하기 위해서는 css가 아닌 element에 사이즈를 줘야한다.
 canvas.height = 700;
 
-ctx.strokeStle="#2c2c2c"
+ctx.strokeStyle="#2c2c2c"
 ctx.lineWidth = 2.5;
 
 let painting = false;
@@ -37,9 +38,20 @@ function onMouseLeave(event){
     painting = false
 }
 
+// 이벤트 target의 배경색을 가져와서 canvas context의 strokeStyle(선 색깔)을 click된 요소의 배경색으로 변경한다.
+function handleColorClick(event){
+    const color = event.target.style.backgroundColor;
+    ctx.strokeStyle = color
+}
+
 if(canvas){
     canvas.addEventListener("mousemove", onMouseMove)
     canvas.addEventListener('mousedown', onMouseDown) //그리기 시작 용도
     canvas.addEventListener('mouseup', onMouseUp) // 그리기 멈춤 용도
     canvas.addEventListener('mouseleave', onMouseLeave)
 }
+
+// .js-color를 array로 만든 후 각각에 click event를 추가한다.
+Array.from(colors).forEach(color => 
+    color.addEventListener("click", handleColorClick)
+);
