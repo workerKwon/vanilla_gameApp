@@ -1,6 +1,7 @@
 const canvas = document.getElementById('jsCanvas')
 const ctx = canvas.getContext("2d")
 const colors = document.getElementsByClassName('js-color')
+const range = document.getElementById('jsRange')
 
 canvas.width = 700; // context함수를 이용하기 위해서는 css가 아닌 element에 사이즈를 줘야한다.
 canvas.height = 700;
@@ -44,6 +45,12 @@ function handleColorClick(event){
     ctx.strokeStyle = color
 }
 
+// event.target.value를 가져와 canvas context의 lineWidth를 변경한다.
+function handleRangeChange(event){
+    const size = event.target.value
+    ctx.lineWidth = size
+}
+
 if(canvas){
     canvas.addEventListener("mousemove", onMouseMove)
     canvas.addEventListener('mousedown', onMouseDown) //그리기 시작 용도
@@ -55,3 +62,8 @@ if(canvas){
 Array.from(colors).forEach(color => 
     color.addEventListener("click", handleColorClick)
 );
+
+// #jsRange에 값이 들어갈 때
+if(range){
+    range.addEventListener("input", handleRangeChange)
+}
