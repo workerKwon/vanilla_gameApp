@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d")
 const colors = document.getElementsByClassName('js-color')
 const range = document.getElementById('jsRange')
 const mode = document.getElementById('jsMode')
+const saveBtn = document.getElementById('jsSave')
 
 const INITIAL_COLOR = "#2c2c2c"
 const CANVAS_SIZE = 700
@@ -10,6 +11,8 @@ const CANVAS_SIZE = 700
 canvas.width = CANVAS_SIZE; // context함수를 이용하기 위해서는 css가 아닌 element에 사이즈를 줘야한다.
 canvas.height = CANVAS_SIZE;
 
+ctx.fillStyle = "white"
+ctx.fillRect(0, 0, canvas.width, canvas.height)
 ctx.strokeStyle = INITIAL_COLOR
 ctx.fillStyle = INITIAL_COLOR
 ctx.lineWidth = 2.5;
@@ -80,6 +83,15 @@ function handleCanvasClick(){
     }
 }
 
+// save 버튼을 클릭하면 실행되는 함수
+function handleSaveClick(){
+    const image = canvas.toDataURL("image/png") // jpeg로 하면 jpeg로 만들어진다.
+    const link = document.createElement("a") // 클릭할 수 있는 a 태그 생성.
+    link.href = image // a태그에 이동 할 url을 담아놓는 태그 옵션
+    link.download = 'image'; // href에 담겨 있는 url을 다운로드 하는 기능과 다운로드 시 저장할 이름을 적는 태그 옵션
+    link.click(); // a태그를 클릭하면 바로 다운로드가 진행 됨.
+}
+
 if(canvas){
     canvas.addEventListener("mousemove", onMouseMove)
     canvas.addEventListener('mousedown', onMouseDown) //그리기 시작 용도
@@ -101,4 +113,9 @@ if(range){
 // #jsMode에 클릭 기능 추가
 if(mode){
     mode.addEventListener('click', handleModeClick)
+}
+
+// #jsSave에 클릭 이벤트 추가.
+if(saveBtn){
+    saveBtn.addEventListener("click", handleSaveClick)
 }
