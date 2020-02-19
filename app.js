@@ -85,7 +85,7 @@ function handleCanvasClick(){
 
 // save 버튼을 클릭하면 실행되는 함수
 function handleSaveClick(){
-    const image = canvas.toDataURL("image/png") // jpeg로 하면 jpeg로 만들어진다.
+    const image = canvas.toDataURL("image/png") // canvas image를 url로 만드는 함수. jpeg로 하면 jpeg로 만들어진다.
     const link = document.createElement("a") // 클릭할 수 있는 a 태그 생성.
     link.href = image // a태그에 이동 할 url을 담아놓는 태그 옵션
     link.download = 'image'; // href에 담겨 있는 url을 다운로드 하는 기능과 다운로드 시 저장할 이름을 적는 태그 옵션
